@@ -1,0 +1,222 @@
+ <!-- hello-here-is-syuga-welocome-to-use-this-enjoy-your-creation -->
+<div class="chats-container">
+    <!-- 张三聊天窗口 -->
+    <div class="chat-container">
+        <!-- 聊天头部 -->
+        <div class="chat-header">
+            <div class="back-btn">&lt;</div>
+            <div class="chat-title">张三</div>
+            <div class="settings-btn">•••</div>
+        </div>
+        
+        <!-- 聊天消息区域 -->
+        <div class="chat-messages">
+
+            <!-- 时间戳 -->
+            <div class="message-time">今天 14:25</div>
+            
+            <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #07c160;">张</div>
+                <div class="message-content">你好，最近怎好，最近怎么好，最近怎么好，最近怎么好，最近怎么好，最近怎么好，最近怎么好，最近怎么好，最近怎么么样？</div>
+            </div>
+            
+            <!-- 发送的消息 -->
+            <div class="message sent">
+                <div class="message-content">还不错，最近工作挺忙的</div>
+                <div class="message-avatar" style="background: #999;">我</div>
+            </div>
+            
+            <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #07c160;">张</div>
+                <div class="message-content">我也是，项目进度有点紧。周末有空一起吃饭吗？</div>
+            </div>
+            
+            <!-- 发送的消息 -->
+            <div class="message sent">
+                <div class="message-content">好啊，周六晚上怎么样？</div>
+                <div class="message-avatar" style="background: #999;">我</div>
+            </div>
+            
+            <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #07c160;">张</div>
+                <div class="message-content">周六晚上可以，我知道一家新开的川菜馆不错</div>
+            </div>
+            
+            <!-- 发送的消息 -->
+            <div class="message sent">
+                <div class="message-content">听起来不错，把地址发给我吧</div>
+                <div class="message-avatar" style="background: #999;">我</div>
+            </div>
+            
+            <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #07c160;">张</div>
+                <div class="message-content">好的，地址是：人民路123号，川味人家</div>
+            </div>
+            
+            <!-- 发送的消息 -->
+            <div class="message sent">
+                <div class="message-content">收到，那我们周六晚上7点见？</div>
+                <div class="message-avatar" style="background: #999;">我</div>
+            </div>
+            
+            <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #07c160;">张</div>
+                <div class="message-content">好的，没问题！</div>
+            </div>
+
+
+
+
+        </div>
+        <!-- 聊天输入区域 -->
+        <div class="chat-input-area">
+            <div class="input-box" contenteditable="true"></div>
+            <button class="send-btn">发送</button>
+        </div>
+    </div>
+
+
+ <p>-------------分割线------------- </p>     
+
+
+
+    <!-- 李四聊天窗口 -->
+    <div class="chat-container">
+        <!-- 聊天头部 -->
+        <div class="chat-header">
+            <div class="back-btn">&lt;</div>
+            <div class="chat-title">李四</div>
+            <div class="settings-btn">•••</div>
+        </div>
+        
+        <!-- 聊天消息区域 -->
+        <div class="chat-messages">
+            <!-- 时间戳 -->
+            <div class="message-time">昨天 15:30</div>
+            
+            <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #ff9800;">李</div>
+                <div class="message-content">周末一起吃饭吗？</div>
+            </div>
+            
+            <!-- 发送的消息 -->
+            <div class="message sent">
+                <div class="message-content">好啊，你想吃什么？</div>
+                <div class="message-avatar" style="background: #999;">我</div>
+            </div>
+            
+            <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #ff9800;">李</div>
+                <div class="message-content">我知道一家新开的火锅店不错</div>
+            </div>
+
+  <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #ff9800;">李</div>
+                <div class="message-content">我知道一家新开的火锅店不错</div>
+            </div>
+
+
+  <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #ff9800;">李</div>
+                <div class="message-content">我知道一家新开的火锅店不错</div>
+            </div>
+  <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #ff9800;">李</div>
+                <div class="message-content">我知道一家新开的火锅店不错</div>
+            </div>
+  <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #ff9800;">李</div>
+                <div class="message-content">我知道一家新开的火锅店不错</div>
+            </div>
+            
+            <!-- 发送的消息 -->
+            <div class="message sent">
+                <div class="message-content">听起来不错，周六晚上怎么样？</div>
+                <div class="message-avatar" style="background: #999;">我</div>
+            </div>
+            
+            <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #ff9800;">李</div>
+                <div class="message-content">好的，周六晚上7点见</div>
+            </div>
+            
+            <!-- 发送的消息 -->
+            <div class="message sent">
+                <div class="message-content">好的，到时候见！</div>
+                <div class="message-avatar" style="background: #999;">我</div>
+            </div>
+
+
+
+        </div>
+        <!-- 聊天输入区域 -->
+        <div class="chat-input-area">
+            <div class="input-box" contenteditable="true"></div>
+            <button class="send-btn">发送</button>
+        </div>
+    </div>
+
+
+ <p>-------------分割线------------- </p>     
+
+
+    <!-- 王五聊天窗口 - 可以继续添加更多聊天窗口 -->
+    <div class="chat-container">
+        <!-- 聊天头部 -->
+        <div class="chat-header">
+           <div class="back-btn">&lt;</div>
+            <div class="chat-title">王五</div>
+            <div class="settings-btn">•••</div>
+        </div>
+        
+        <!-- 聊天消息区域 -->
+        <div class="chat-messages">
+            <!-- 时间戳 -->
+            <div class="message-time">周三 10:15</div>
+            
+            <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #2196f3;">王</div>
+                <div class="message-content">项目文档已经发给你了</div>
+            </div>
+            
+            <!-- 发送的消息 -->
+            <div class="message sent">
+                <div class="message-content">收到了，我看看</div>
+                <div class="message-avatar" style="background: #999;">我</div>
+            </div>
+            
+            <!-- 接收的消息 -->
+            <div class="message received">
+                <div class="message-avatar" style="background: #2196f3;">王</div>
+                <div class="message-content">有什么问题随时联系我</div>
+            </div>
+            
+            <!-- 发送的消息 -->
+            <div class="message sent">
+                <div class="message-content">好的，谢谢</div>
+                <div class="message-avatar" style="background: #999;">我</div>
+            </div>
+
+
+        </div>
+        <!-- 聊天输入区域 -->
+        <div class="chat-input-area">
+            <div class="input-box" contenteditable="true"></div>
+            <button class="send-btn">发送</button>
+        </div>
+          </div>
+
+
