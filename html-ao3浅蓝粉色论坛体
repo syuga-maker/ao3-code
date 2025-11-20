@@ -1,0 +1,179 @@
+   <div class="container">
+       		
+		  <!-- 段落文本开始 -->
+		<p>一段普通的文本，可用于开头的简单说明，不需要的话整段删掉就好。</p>
+		<br>
+		<!-- 段落文本结束 -->
+		
+		
+        <!-- 帖子头部信息 -->
+        <div class="forum-header">
+            <h1>【讨论】大家觉得番茄炒蛋是甜的还是咸的好吃</h1>
+        </div>
+         <!-- 帖子头部信息 -->
+		
+        <!-- 楼主内容 -->
+        <div class="post-content original-poster">
+            <div class="floor">
+                <span class="floor-number">楼主</span>
+                <span class="post-time">发布时间: 2023-10-15 14:30</span>
+            </div>
+            
+            <div class="user-info">
+                <div class="username">一顿吃五碗</div>
+            </div>
+            
+            <div class="content">
+                <p>我家做的番茄炒蛋一直是咸的，今天才知道朋友家吃甜的。</p>
+                <p>这让我很好奇，大家平时吃的是甜的还是咸的？</p>
+            </div>
+        </div>
+        <!-- 楼主内容 -->
+        
+        <!-- 一楼开始 -->
+        <div class="reply">
+            <div class="floor">
+                <span class="floor-number">1楼</span>
+                <span class="post-time">发布时间: 2023-10-15 15:12</span>
+            </div>
+            
+            <div class="user-info">
+                <div class="username">小王</div>
+            </div>
+            
+            <div class="content">
+                <p>我觉得甜的好，甜味的番茄炒蛋拌饭特别好吃！</p>
+            </div>
+            
+            <!-- 楼中楼回复开始 -->
+            <div class="nested-replies">
+                <div class="nested-reply">
+                    <div class="nested-username">AAA番茄酱批发</div>
+                    <div class="nested-content">
+                        你是哪人啊，我们都吃咸的，不过有一次尝了甜的也不错
+                    </div>
+                </div>
+                
+                <div class="nested-reply">
+                    <div class="nested-username">小王</div>
+                    <div class="nested-content">
+                        算南方吧？没吃过咸的
+                    </div>
+                </div>
+            </div>
+            <!-- 楼中楼回复完毕 -->
+			
+        </div>
+        <!-- 一楼结束 -->
+        
+		
+        <!-- 二楼开始 -->
+        <div class="reply">
+            <div class="floor">
+                <span class="floor-number">2楼</span>
+                <span class="post-time">发布时间: 2023-10-15 16:05</span>
+            </div>
+            
+            <div class="user-info">
+                <div class="username">名字不可用</div>
+            </div>
+            
+            <div class="content">
+                <p>这只是一段示例文字而已，不过我觉得咸的更好吃。</p>
+            </div>
+            
+            <!-- 楼中楼开始 -->
+            <div class="nested-replies">
+				
+                <div class="nested-reply">
+                    <div class="nested-username">再编一个名字</div>
+                    <div class="nested-content">
+                        同意！我也只是在示例而已，不过咸的确实好吃。
+                    </div>
+                </div>
+                
+                <div class="nested-reply">
+                    <div class="nested-username">一顿吃五碗 <span class="poster-badge">楼主</span></div>
+                    <div class="nested-content">
+                        确实，吃饭很重要，咸的可以配米饭吃。
+                    </div>
+                </div>
+              
+                <div class="nested-reply">
+                    <div class="nested-username">名字不可用</div>
+                    <div class="nested-content">
+                        确实，饿死也行。不过还是吃饱了好。
+                    </div>
+                </div>
+				
+				
+            </div>
+            <!-- 楼中楼结束 -->
+        </div>
+        <!-- 二楼结束 -->
+        
+        <!-- 三楼开始 -->
+        <div class="reply">
+            <div class="floor">
+                <span class="floor-number">3楼</span>
+                <span class="post-time">发布时间: 2023-10-15 17:20</span>
+            </div>
+            
+            <div class="user-info">
+                <div class="username">一顿吃五碗 <span class="poster-badge">楼主</span></div>
+            </div>
+            
+            <div class="content">
+                <p>做番茄炒蛋加点番茄酱，味道会更浓郁。</p>
+            </div>
+        </div>
+        <!-- 三楼结束 -->
+        
+        <!-- 四楼开始 -->
+        <div class="reply">
+            <div class="floor">
+                <span class="floor-number">4楼</span>
+                <span class="post-time">发布时间: 2023-10-15 17:20</span>
+            </div>
+            
+            <div class="user-info">
+                <div class="username">匿名用户</div>
+            </div>
+            
+            <div class="content">
+                <p>不爱吃，拌饭还可以。</p>
+            </div>
+            
+            <!-- 楼中楼开始 -->
+            <div class="nested-replies">
+				
+                <div class="nested-reply">
+                    <div class="nested-username">喝西北风</div>
+                    <div class="nested-content">
+                        拌饭确实不错，尤其是甜味的。
+                    </div>
+                </div>
+				
+            </div>
+            <!-- 楼中楼结束 -->
+        </div>
+        <!-- 四楼结束 -->
+		
+		<!-- 五楼开始 -->
+        <div class="reply">
+            <div class="floor">
+                <span class="floor-number">5楼</span>
+                <span class="post-time">发布时间: 2023-10-15 17:20</span>
+            </div>
+            
+            <div class="user-info">
+                <div class="username">匿名用户</div>
+            </div>
+            
+            <div class="content">
+                <p>我觉得都可以，看个人口味吧。</p>
+            </div>
+        </div>
+        <!-- 五楼结束 -->
+		
+    </div>
