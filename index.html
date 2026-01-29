@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>为笔下的角色而写</title>
+    <style>
+        /* 1. 基础设置 */
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('背景.png') repeat;
+            background-attachment: fixed;
+            font-family: "Georgia", "Times New Roman", "华文中宋", serif;
+            color: #4a3728;
+            line-height: 1.5;
+        }
+
+        /* 2. 装饰 GIF - 较大的氛围感尺寸 */
+        .decor-gif {
+            position: fixed;
+            width: 100px;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+        .top-left { top: 10px; left: 10px; }
+        .bottom-right { bottom: 10px; right: 10px; }
+
+        /* 3. 右上角搜索框 */
+        .search-container {
+            position: fixed;
+            top: 25px;
+            right: 30px;
+            z-index: 1000;
+        }
+        .search-input {
+            padding: 10px 15px;
+            width: 180px;
+            background: rgba(255, 252, 240, 0.95);
+            border: 1px solid #8b7355;
+            color: #4a3728;
+            outline: none;
+            box-shadow: 4px 4px 0px rgba(139, 115, 85, 0.2);
+            transition: width 0.3s;
+        }
+        .search-input:focus { width: 260px; }
+
+        /* 4. 头部说明 */
+        header {
+            text-align: center;
+            padding: 70px 20px 20px 20px;
+        }
+        header h1 { 
+            font-size: 2.2em; 
+            border-bottom: 2px solid #8b7355; 
+            display: inline-block; 
+            margin-bottom: 10px; 
+        }
+        header .guide { font-size: 0.95em; font-style: italic; color: #6d5b4b; }
+
+        /* 5. 卡片容器布局 - 一行两个 */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .manuscript-card {
+            background: rgba(255, 253, 245, 0.9);
+            width: 480px;
+            flex-grow: 0;
+            flex-shrink: 0;
+            border: 1px solid #c2b280;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.06);
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .card-header {
+            border-bottom: 1px double #8b7355;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+        }
+        .theme-title { font-size: 1.4em; font-weight: bold; }
+        .theme-desc { font-size: 0.85em; color: #7a6a53; margin-top: 5px; }
+
+        /* 6. 图片预览区 */
+        .preview-area {
+            width: 100%;
+            height: 280px;
+            background: #f8f4e8;
+            margin-bottom: 15px;
+            border: 1px solid #e0d8c0;
+            overflow-x: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .preview-area:has(img:nth-child(2)) { justify-content: flex-start; }
+
+        .preview-area img {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            flex-shrink: 0;
+            object-fit: contain;
+            cursor: zoom-in;
+            filter: sepia(5%);
+        }
+
+        /* 7. 代码区域 */
+        .tabs { display: flex; gap: 8px; margin-bottom: -1px; }
+        .tab-btn {
+            padding: 6px 15px;
+            border: 1px solid #c2b280;
+            border-bottom: none;
+            background: rgba(240, 230, 200, 0.3);
+            cursor: pointer;
+            font-family: inherit;
+            color: #8b7355;
+            font-size: 0.85em;
+        }
+        .tab-btn.active { 
+            background: #fff; 
+            font-weight: bold; 
+            color: #4a3728; 
+            border-top: 2px solid #8b7355; 
+        }
+
+        .code-box {
+            position: relative;
+            background: #fff;
+            border: 1px solid #c2b280;
+            height: 220px;
+        }
+        .code-content {
+            display: none;
+            padding: 12px;
+            margin: 0;
+            height: 100%;
+            overflow: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+        }
+        .code-content.active { display: block; }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px; right: 10px;
+            padding: 4px 10px;
+            background: #8b7355; color: #fff;
+            border: none; font-size: 10px; cursor: pointer;
+        }
+
+        /* 8. 大图查看 */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        #lightbox img { max-width: 95%; max-height: 95%; }
+
+        /* 9. 页脚署名区 */
+        footer {
+            text-align: center;
+            padding: 60px 20px 40px 20px;
+            font-size: 0.85em;
+			
+            color: #8b7355;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        /* 手机端适配 */
+        @media (max-width: 1000px) {
+            .manuscript-card { width: 95%; }
+            .decor-gif { width: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 装饰物 -->
+    <img src="U3HWHSC2I373QSWAXIGJLIY6PMBOCQVT.gif" class="decor-gif top-left">
+    <img src="XULEZL6A63XNBIPEHOI77QYRTDGFSH33.gif" class="decor-gif bottom-right">
+
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightboxImg" src="">
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="搜索主题..." onkeyup="filterCards()">
+    </div>
+
+    <header>
+        <h1>AO3文章皮肤代码</h1>
+        <div class="guide"><strong>使用方法：</strong><br>
+①在AO3创建新的 Work Skin，将CSS原封不动地复制粘贴进去，保存提交。<br>
+②复制html，将示范文本替换为你的内容。AO3发布时采用html发布，并选中刚刚创建的对应 Work Skin，使其生效即可。</div>
+    </header>
+
+    <main class="container" id="cardContainer">
+        <!-- 卡片示例 1 -->
+        <div class="manuscript-card">
+            <div class="card-header">
+                <span class="theme-title">论坛体（蓝粉色）</span><br>
+
+                <span class="theme-desc">自定义层数、楼中楼、楼主标识显示等，可在css中自己改一下配色。</span>
+            </div>
+            <div class="preview-area">
+                <img src="" onclick="openLightbox(this.src)">
+                <img src="" onclick="openLightbox(this.src)">
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(this, 'html')">HTML</button>
+                <button class="tab-btn" onclick="switchTab(this, 'css')">CSS</button>
+            </div>
+            <div class="code-box">
+                <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+                <pre class="code-content active"><code>
+				
+				
+	&lt;div class="container"&gt;
+    &lt;!-- 段落文本开始 --&gt;
+    &lt;p&gt;一段普通的文本，可用于开头的简单说明，不需要的话整段删掉就好。&lt;/p&gt;
+    &lt;br&gt;
+    &lt;!-- 段落文本结束 --&gt;
+
+    &lt;!-- 帖子头部信息 --&gt;
+    &lt;div class="forum-header"&gt;
+    &lt;h1&gt;【讨论】大家觉得番茄炒蛋是甜的还是咸的好吃&lt;/h1&gt;
+    &lt;/div&gt;
+    &lt;!-- 帖子头部信息 --&gt;
+
+    &lt;!-- 楼主内容 --&gt;
+    &lt;div class="post-content original-poster"&gt;
+        &lt;div class="floor"&gt;
+            &lt;span class="floor-number"&gt;楼主&lt;/span&gt;
+            &lt;span class="post-time"&gt;发布时间: 2023-10-15 14:30&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="user-info"&gt;
+            &lt;div class="username"&gt;一顿吃五碗&lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="content"&gt;
+            &lt;p&gt;我家做的番茄炒蛋一直是咸的，今天才知道朋友家吃甜的。&lt;/p&gt;
+            &lt;p&gt;这让我很好奇，大家平时吃的是甜的还是咸的？&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- 楼主内容 --&gt;
+    
+    &lt;!-- 一楼开始 --&gt;
+    &lt;div class="reply"&gt;
+        &lt;div class="floor"&gt;
+            &lt;span class="floor-number"&gt;1楼&lt;/span&gt;
+            &lt;span class="post-time"&gt;发布时间: 2023-10-15 15:12&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="user-info"&gt;
+            &lt;div class="username"&gt;小王&lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="content"&gt;
+            &lt;p&gt;我觉得甜的好，甜味的番茄炒蛋拌饭特别好吃！&lt;/p&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- 楼中楼回复开始 --&gt;
+        &lt;div class="nested-replies"&gt;
+            &lt;div class="nested-reply"&gt;
+                &lt;div class="nested-username"&gt;AAA番茄酱批发&lt;/div&gt;
+                &lt;div class="nested-content"&gt;
+                    你是哪人啊，我们都吃咸的，不过有一次尝了甜的也不错
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!-- 楼中楼回复完毕 --&gt;
+    &lt;/div&gt;
+    &lt;!-- 一楼结束 --&gt;
+
+    &lt;!-- 二楼开始 --&gt;
+    &lt;div class="reply"&gt;
+        &lt;div class="floor"&gt;
+            &lt;span class="floor-number"&gt;2楼&lt;/span&gt;
+            &lt;span class="post-time"&gt;发布时间: 2023-10-15 16:05&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="user-info"&gt;
+            &lt;div class="username"&gt;名字不可用&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="content"&gt;
+            &lt;p&gt;这只是一段示例文字而已，不过我觉得咸的更好吃。&lt;/p&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- 楼中楼开始 --&gt;
+        &lt;div class="nested-replies"&gt;
+            
+            &lt;div class="nested-reply"&gt;
+                &lt;div class="nested-username"&gt;再编一个名字&lt;/div&gt;
+                &lt;div class="nested-content"&gt;
+                    同意！我也只是在示例而已，不过咸的确实好吃。
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;div class="nested-reply"&gt;
+                &lt;div class="nested-username"&gt;一顿吃五碗 &lt;span class="poster-badge"&gt;楼主&lt;/span&gt;&lt;/div&gt;
+                &lt;div class="nested-content"&gt;
+                    确实，吃饭很重要，咸的可以配米饭吃。
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+        &lt;/div&gt;
+        &lt;!-- 楼中楼结束 --&gt;
+    &lt;/div&gt;
+    &lt;!-- 二楼结束 --&gt;
+    
+    &lt;!-- 三楼开始 --&gt;
+    &lt;div class="reply"&gt;
+        &lt;div class="floor"&gt;
+            &lt;span class="floor-number"&gt;3楼&lt;/span&gt;
+            &lt;span class="post-time"&gt;发布时间: 2023-10-15 17:20&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="user-info"&gt;
+            &lt;div class="username"&gt;一顿吃五碗 &lt;span class="poster-badge"&gt;楼主&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="content"&gt;
+            &lt;p&gt;做番茄炒蛋加点番茄酱，味道会更浓郁。&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- 三楼结束 --&gt;
+&lt;/div&gt;
+				
+				</code></pre>
+				
+				
+                <pre class="code-content"><code> 
+     /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+        }
+        
+        /* 页面整体样式 - 浅蓝+浅粉混合背景 */
+        body {
+            background: linear-gradient(135deg, #f0f8ff 0%, #fef5fa 100%);
+            color: #444;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        /* 主容器样式 */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* 论坛标题样式 */
+        .forum-title {
+            text-align: center;
+            color: #8bb9e8;
+            margin-bottom: 25px;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        
+        /* 帖子头部样式 - 浅蓝色 */
+        .forum-header {
+            background-color: #63BEFF;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 5px;
+        }
+        
+        .forum-header h1 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .post-info {
+            font-size: 14px;
+        }
+        
+        /* 帖子内容区域样式 - 白色背景 */
+        .post-content {
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-left: 5px solid #F8E8F0; /* 楼主内容特殊边框色 - 浅粉色 */
+        }
+        
+        /* 楼层标识样式 */
+        .floor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #8bb9e8;
+            margin-bottom: 10px;
+        }
+        
+        .floor-number {
+            background-color: #F8E8F0; /* 楼层号背景色 - 浅粉色 */
+            color: #555;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        
+        /* 用户信息样式 - 减少底部间距 */
+        .user-info {
+            margin-bottom: 7.5px; /* 从15px减少到7.5px */
+            padding-bottom: 7.5px; /* 从15px减少到7.5px */
+            border-bottom: 1px solid #f0f7ff;
+        }
+        
+        .username {
+            font-weight: 500;
+            color: #5a7a9a;
+            margin-bottom: 5px;
+        }
+        
+        .post-time {
+            color: #8ba3b8;
+            font-size: 14px;
+        }
+        
+        /* 帖子内容样式 */
+        .content {
+            margin-bottom: 0px;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        /* 回复内容样式 - 浅蓝色边框 */
+        .reply {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-left: 5px solid #DCEEFF;
+        }
+        
+        .reply .floor-number {
+            background-color: #DCEEFF; /* 回复楼层号背景色 - 浅蓝色 */
+        }
+        
+        /* 楼中楼回复样式 - 浅蓝+浅粉混合背景 */
+        .nested-replies {
+            margin-top: 7.5px; /* 从15px减少到7.5px */
+            margin-left: 0px;
+            padding-left: 15px;
+        }
+        
+        .nested-reply {
+            background: linear-gradient(135deg, #f8fcff 0%, #fef5fa 100%);
+            border-radius: 5px;
+            padding: 12px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        /* 楼中楼用户名和内容间距调整 */
+        .nested-username {
+            font-weight: 500;
+            color: #5a7a9a;
+            font-size: 14px;
+            margin-bottom: 4px; /* 从8px减少到4px */
+        }
+        
+        .nested-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        /* 楼主特殊标识样式 */
+        .poster-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #e8b5d0 0%, #a8d5ff 100%);
+            color: #555;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-left: 10px;
+        }
+        
+        .original-poster {
+            background-color: #fcf8fa;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .forum-header, .post-content, .reply {
+                padding: 12px;
+            }
+            
+            .nested-reply {
+                padding: 8px;
+            }
+        }
+		
+		
+		</code></pre>
+            </div>
+        </div>
+
+        <!-- 卡片示例 2 -->
+        <div class="manuscript-card">
+            <div class="card-header">
+                <span class="theme-title">仿微信UI（捡手机文学）</span><br>
+                <span class="theme-desc">可自定义对话框数量、系统提示等,可在css中改配色。如在非AO3环境使用，请删除CSS中的 #workskin 前缀。</span>
+            </div>
+            <div class="preview-area">
+                <img src="" onclick="openLightbox(this.src)">
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(this, 'html')">HTML</button>
+                <button class="tab-btn" onclick="switchTab(this, 'css')">CSS</button>
+            </div>
+            <div class="code-box">
+                <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+				
+                <pre class="code-content active"><code>
+				
+				&lt;div class="chats-container"&gt;
+    &lt;!-- 张三聊天窗口 --&gt;
+    &lt;div class="chat-container"&gt;
+        &lt;!-- 聊天头部 --&gt;
+        &lt;div class="chat-header"&gt;
+            &lt;div class="back-btn"&gt;&amp;lt;&lt;/div&gt;
+            &lt;div class="chat-title"&gt;张三&lt;/div&gt;
+            &lt;div class="settings-btn"&gt;•••&lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- 聊天消息区域 --&gt;
+        &lt;div class="chat-messages"&gt;
+
+            &lt;!-- 时间戳 --&gt;
+            &lt;div class="message-time"&gt;今天 14:25&lt;/div&gt;
+            
+            &lt;!-- 接收的消息 --&gt;
+            &lt;div class="message received"&gt;
+                &lt;div class="message-avatar" style="background: #07c160;"&gt;张&lt;/div&gt;
+                &lt;div class="message-content"&gt;你好，最近怎好，最近怎么好，最近怎么好，最近怎么好，最近怎么好，最近怎么好，最近怎么好，最近怎么好，最近怎么么样？&lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;!-- 发送的消息 --&gt;
+            &lt;div class="message sent"&gt;
+                &lt;div class="message-content"&gt;还不错，最近工作挺忙的&lt;/div&gt;
+                &lt;div class="message-avatar" style="background: #999;"&gt;我&lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;!-- 接收的消息 --&gt;
+            &lt;div class="message received"&gt;
+                &lt;div class="message-avatar" style="background: #07c160;"&gt;张&lt;/div&gt;
+                &lt;div class="message-content"&gt;我也是，项目进度有点紧。周末有空一起吃饭吗？&lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;!-- 发送的消息 --&gt;
+            &lt;div class="message sent"&gt;
+                &lt;div class="message-content"&gt;听起来不错，把地址发给我吧&lt;/div&gt;
+                &lt;div class="message-avatar" style="background: #999;"&gt;我&lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;!-- 接收的消息 --&gt;
+            &lt;div class="message received"&gt;
+                &lt;div class="message-avatar" style="background: #07c160;"&gt;张&lt;/div&gt;
+                &lt;div class="message-content"&gt;好的，地址是：人民路123号，川味人家&lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;!-- 发送的消息 --&gt;
+            &lt;div class="message sent"&gt;
+                &lt;div class="message-content"&gt;收到，那我们周六晚上7点见？&lt;/div&gt;
+                &lt;div class="message-avatar" style="background: #999;"&gt;我&lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;!-- 接收的消息 --&gt;
+            &lt;div class="message received"&gt;
+                &lt;div class="message-avatar" style="background: #07c160;"&gt;张&lt;/div&gt;
+                &lt;div class="message-content"&gt;好的，没问题！&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- 聊天输入区域 --&gt;
+        &lt;div class="chat-input-area"&gt;
+            &lt;div class="input-box" contenteditable="true"&gt;&lt;/div&gt;
+            &lt;button class="send-btn"&gt;发送&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;-------------分割线------------- &lt;/p&gt;     
+
+    &lt;!-- 李四聊天窗口 --&gt;
+    &lt;div class="chat-container"&gt;
+        &lt;!-- 聊天头部 --&gt;
+        &lt;div class="chat-header"&gt;
+            &lt;div class="back-btn"&gt;&amp;lt;&lt;/div&gt;
+            &lt;div class="chat-title"&gt;李四&lt;/div&gt;
+            &lt;div class="settings-btn"&gt;•••&lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- 聊天消息区域 --&gt;
+        &lt;div class="chat-messages"&gt;
+            &lt;!-- 时间戳 --&gt;
+            &lt;div class="message-time"&gt;昨天 15:30&lt;/div&gt;
+            
+            &lt;!-- 接收的消息 --&gt;
+            &lt;div class="message received"&gt;
+                &lt;div class="message-avatar" style="background: #ff9800;"&gt;李&lt;/div&gt;
+                &lt;div class="message-content"&gt;我知道一家新开的火锅店不错&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="message received"&gt;
+                &lt;div class="message-avatar" style="background: #ff9800;"&gt;李&lt;/div&gt;
+                &lt;div class="message-content"&gt;我知道一家新开的火锅店不错&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="message received"&gt;
+                &lt;div class="message-avatar" style="background: #ff9800;"&gt;李&lt;/div&gt;
+                &lt;div class="message-content"&gt;我知道一家新开的火锅店不错&lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;!-- 发送的消息 --&gt;
+            &lt;div class="message sent"&gt;
+                &lt;div class="message-content"&gt;听起来不错，周六晚上怎么样？&lt;/div&gt;
+                &lt;div class="message-avatar" style="background: #999;"&gt;我&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- 聊天输入区域 --&gt;
+        &lt;div class="chat-input-area"&gt;
+            &lt;div class="input-box" contenteditable="true"&gt;&lt;/div&gt;
+            &lt;button class="send-btn"&gt;发送&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+				
+				</code></pre>
+				
+				
+                <pre class="code-content"><code>
+				
+#workskin .chats-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+#workskin .chat-container {
+  width: 360px;
+  height: 640px;
+  background: white;
+  font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  position: relative;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+#workskin .chat-container:last-child {
+  margin-bottom: 0;
+}
+
+#workskin .chat-header {
+  height: 44px;
+  background: #1aad19;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 0 15px;
+  flex-shrink: 0;
+}
+
+#workskin .chat-title {
+  flex: 1;
+  text-align: center;
+}
+
+#workskin .settings-btn {
+  font-size: 20px;
+  cursor: pointer;
+  width: 30px;
+  text-align: right;
+  letter-spacing: 2px;
+}
+
+#workskin .chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+#workskin .message-time {
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  margin: 10px 0;
+  flex-shrink: 0;
+}
+
+#workskin .message {
+  margin-bottom: 10px;
+  display: flex;
+  max-width: 85%;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+#workskin .message.received {
+  align-self: flex-start;
+}
+
+#workskin .message.sent {
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+#workskin .message-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  margin: 0 8px;
+  flex-shrink: 0;
+}
+
+#workskin .message.received .message-avatar {
+  background: #07c160;
+}
+
+#workskin .message.sent .message-avatar {
+  background: #999;
+}
+
+#workskin .message-content {
+  padding: 2px 8px;
+  border-radius: 4px;
+  position: relative;
+  word-break: break-word;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  min-width: 0;
+  flex: 1;
+  line-height: 1.2;
+  font-size: 14px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+#workskin .message.received .message-content {
+  background: white;
+  border-top-left-radius: 0;
+}
+
+#workskin .message.received .message-content:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid white;
+  border-left: 8px solid transparent;
+}
+
+#workskin .message.sent .message-content {
+  background: #95ec69;
+  border-top-right-radius: 0;
+  color: #000;
+}
+
+#workskin .message.sent .message-content:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid #95ec69;
+  border-right: 8px solid transparent;
+}
+
+#workskin .chat-input-area {
+  height: 60px;
+  background: #f5f5f5;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  flex-shrink: 0;
+}
+
+#workskin .input-box {
+  flex: 1;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  padding: 8px 15px;
+  min-height: 20px;
+  max-height: 60px;
+  overflow-y: auto;
+  outline: none;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+#workskin .send-btn {
+  margin-left: 10px;
+  width: 60px;
+  height: 36px;
+  background: #07c160;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+#workskin .send-btn:hover {
+  background: #06ae56;
+}
+
+#workskin .send-btn:active {
+  background: #059c4d;
+}
+
+#workskin .chat-footer {
+  height: 50px;
+  background: #f9f9f9;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+#workskin .footer-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #999;
+}
+
+#workskin .footer-btn.active {
+  color: #1aad19;
+}
+
+#workskin .footer-icon {
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+#workskin .chat-messages::-webkit-scrollbar {
+  width: 5px;
+}
+
+#workskin .chat-messages::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#workskin .chat-messages::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+				
+				</code></pre>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚署名 -->
+    <footer>
+        <p>© 又老又脆弱（Syuga）<br>
+代码由AI辅助开发。创意方案、细节调优、效果测试、代码整理均由Syuga独立完成。<br>
+            最后更新日期：2025年1月15日</p>
+    </footer>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function switchTab(btn, type) {
+            const card = btn.closest('.manuscript-card');
+            const btns = card.querySelectorAll('.tab-btn');
+            const contents = card.querySelectorAll('.code-content');
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if(type === 'html') {
+                contents[0].classList.add('active');
+                contents[1].classList.remove('active');
+            } else {
+                contents[0].classList.remove('active');
+                contents[1].classList.add('active');
+            }
+        }
+        function copyCode(btn) {
+            const codeBox = btn.closest('.code-box');
+            const text = codeBox.querySelector('.code-content.active').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const old = btn.innerText;
+                btn.innerText = 'OK!';
+                setTimeout(() => btn.innerText = old, 1500);
+            });
+        }
+        function filterCards() {
+            const val = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.getElementsByClassName('manuscript-card');
+            for (let card of cards) {
+                const title = card.querySelector('.theme-title').innerText.toLowerCase();
+                card.style.display = title.includes(val) ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
