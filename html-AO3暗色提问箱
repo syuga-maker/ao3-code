@@ -1,0 +1,44 @@
+
+ <div class="container">
+		 <!-- 下面两行可以放标题和说明、也可删除 -->
+		<h1>Ghost的提问箱</h1>
+		<p class="subtitle">请你们问一些有营养的问题</p>
+		
+		 <!-- 卡片开始 -->
+		<div class="qa-card">
+			<div class="question-section">
+			<div class="user-name asker-name"><p>匿名用户536463</p></div>
+			<div class="question-text"><p>你一般听什么样的音乐？</p></div>
+			</div>
+			
+			<div class="answer-section">
+			<div class="answer-header">
+			<!--    下面的 <img src="https://i.imgur.com/GRDX2eB.png"> 代表头像图片引用，冒号中的链接要替换为你自己的图片链接地址    -->
+			<div class="avatar answerer-avatar"><p><img src="https://i.imgur.com/GRDX2eB.png"></p></div>
+			<div class="user-name answerer-name"><p>ghost</p></div>
+			</div>
+			<div class="answer-text"><p>像我一样硬核的东西</p></div>
+            </div>
+		</div>
+		 <!-- 卡片结束 -->
+		
+		
+		<!-- 卡片开始 -->
+		<div class="qa-card">
+			<div class="question-section">
+			<div class="user-name asker-name"><p>用户536556</p></div>
+			<div class="question-text"><p>请问如何才能像您一样优秀呢？</p></div>
+			</div>
+			
+			<div class="answer-section">
+			<div class="answer-header">
+			<div class="avatar answerer-avatar"><p><img src="https://i.imgur.com/GRDX2eB.png"></p></div>
+			<div class="user-name answerer-name"><p>ghost</p></div>
+			</div>
+			<div class="answer-text"><p>永远坚持自己想做的</p></div>
+            </div>
+		</div>
+		 <!-- 卡片结束 -->
+		
+	
+</div>
