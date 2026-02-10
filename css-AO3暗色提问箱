@@ -1,0 +1,135 @@
+ #workskin * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+#workskin body {
+  background-color: #121212;
+  color: #e0e0e0;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+#workskin .container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#workskin header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px 0;
+  border-bottom: 1px solid #333;
+}
+
+#workskin h1 {
+  font-size: 2.5rem;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+#workskin .subtitle {
+  color: #aaa;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+#workskin .qa-card {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+#workskin .qa-card:hover {
+  transform: translateY(-3px);
+}
+
+#workskin .question-section,
+#workskin .answer-section {
+  margin-bottom: 20px;
+}
+
+#workskin .question-section {
+  border-bottom: 1px solid #333;
+  padding-bottom: 20px;
+}
+
+#workskin .answer-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#workskin .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+#workskin .answerer-avatar {
+  background-color: #444;
+}
+
+#workskin .answerer-avatar img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+#workskin .user-name {
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+#workskin .asker-name {
+  color: #bbb;
+  margin-bottom: 10px;
+}
+
+#workskin .answerer-name {
+  color: #f0f0f0;
+}
+
+#workskin .question-text,
+#workskin .answer-text {
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+#workskin .question-text {
+  color: #d0d0d0;
+}
+
+#workskin .answer-text {
+  color: #e8e8e8;
+}
+
+#workskin .answer-header {
+  flex-direction: row;
+  align-items: center;
+}
+
+#workskin .avatar {
+  margin-right: 15px;
+  margin-bottom: 0;
+  width: 40px;
+  height: 40px;
+}
+
+#workskin .user-name {
+  font-size: 0.95rem;
+}
