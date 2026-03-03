@@ -1,0 +1,15 @@
+p {
+  /* 首行缩进 2个字符宽度 */
+  text-indent: 2em;
+
+  /* 段落间距：设置段落上下外边距 */
+  /* 1.25em 到 1.5em 通常能呈现出明显的“一行空格”视觉效果 */
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+
+  /* 改善阅读体验：两端对齐 */
+  text-align: justify;
+
+  /* 确保行高舒适 */
+  line-height: 1.6;
+}
