@@ -1,0 +1,163 @@
+ .music-console {
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0;
+  border-radius: 28px;
+  padding: 40px 25px;
+  max-width: 450px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+ .info-panel {
+  order: 1;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.song-title {
+  color: #222222;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ .artist {
+  color: #999999;
+  font-size: 11px;
+  font-family: Monaco, Consolas, "Lucida Console", monospace;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+ .vinyl-deck {
+  order: 2;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid #eeeeee;
+  background-color: #fdfdfd;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+  margin-bottom: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ .cover-img {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+}
+
+ details {
+  order: 3;
+  width: 100%;
+  display: block;
+}
+
+ summary {
+  list-style: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+ summary::-webkit-details-marker {
+  display: none;
+}
+
+ .text-btn {
+  background-color: #f5f5f5;
+  padding: 8px 24px;
+  border-radius: 20px;
+  color: #888888;
+  font-size: 11px;
+  font-family: Monaco, Consolas, "Lucida Console", monospace;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.btn-close {
+  display: none;
+}
+
+ details[open] .btn-open {
+  display: none;
+}
+
+ details[open] .btn-close {
+  display: inline;
+  color: #666666;
+}
+
+ .lcd-screen {
+  width: 100%;
+  height: 56px;
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 28px;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ audio {
+  width: 95%;
+  height: 35px;
+}
+
+ .story-body {
+  order: 4;
+  width: 100%;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #f5f5f5;
+}
+
+ .story-text {
+  font-family: Constantia, "Lucida Bright", Lucida, Georgia, serif;
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+ .story-text p {
+  margin-bottom: 1.5em;
+}
+
+ .spinning-gif {
+  display: none;
+}
+
+ details[open] ~ .vinyl-deck .static-img {
+  display: none;
+}
+
+ details[open] ~ .vinyl-record .spinning-gif {
+  display: block;
+}
+
+ details[open] ~ .vinyl-deck .spinning-gif {
+  display: block;
+}
