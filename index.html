@@ -89,19 +89,24 @@
             gap: 10px;
         }
 
-        /* 6. 左侧图片区 */
-        .preview-area {
-            flex: 0 0 50%; 
+        /* 6. 左侧图片区增强 */
+        .preview-wrapper {
+            flex: 0 0 50%;
+            position: relative; /* 序号相对于此定位，不随滚动移动 */
             background: #f8f4e8;
             border: 1px solid #e0d8c0;
+            overflow: hidden;
+        }
+        
+        .preview-area {
+            width: 100%;
+            height: 100%;
             display: flex;
             overflow-x: auto; 
             scroll-snap-type: x mandatory; 
             align-items: center;
-            padding: 5px 0;
             box-sizing: border-box;
-            position: relative;
-            cursor: grab; /* 电脑端显示抓取手势 */
+            cursor: grab;
         }
         .preview-area:active { cursor: grabbing; }
         
@@ -113,10 +118,10 @@
             scroll-snap-align: center; 
             cursor: zoom-in;
             filter: sepia(5%);
-            -webkit-user-drag: none; /* 防止图片被拖拽引起冲突 */
+            -webkit-user-drag: none;
         }
 
-        /* 图片序号标注 */
+        /* 序号标识：固定在wrapper上 */
         .img-counter {
             position: absolute;
             top: 8px;
@@ -124,10 +129,10 @@
             background: rgba(139, 115, 85, 0.75);
             color: #fff;
             padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            z-index: 5;
-            pointer-events: none;
+            border-radius: 12px;
+            font-size: 11px;
+            z-index: 20;
+            pointer-events: none; /* 防止遮挡点击 */
         }
 
         /* 7. 右侧代码区 */
@@ -185,41 +190,46 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             z-index: 3000;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            cursor: pointer;
         }
         .lightbox-content {
             display: flex;
             height: 100%;
-            width: fit-content;
         }
         .lightbox-slide {
-            width: 100vw;
+            flex: 0 0 100vw;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             scroll-snap-align: center;
-            flex-shrink: 0;
         }
         .lightbox-slide img {
-            max-width: 95%;
-            max-height: 95%;
+            max-width: 98%;
+            max-height: 98%;
             object-fit: contain;
+        }
+        /* 关闭提示 */
+        .close-tip {
+            position: fixed;
+            top: 20px; right: 20px;
+            color: white; font-size: 24px;
+            z-index: 4000; cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            width: 40px; height: 40px; border-radius: 50%;
+            text-align: center; line-height: 40px;
         }
 
         /* 9. 页脚 */
         footer { text-align: center; padding: 40px; font-size: 0.75em; color: #8b7355; font-style: italic; }
 
-        /* 滚动条隐藏或美化 */
+        /* 滚动条美化 */
         .preview-area::-webkit-scrollbar { height: 4px; }
         .preview-area::-webkit-scrollbar-thumb { background: #c2b280; }
         #lightbox::-webkit-scrollbar { display: none; }
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-thumb { background: #c2b280; }
     </style>
 </head>
 <body>
@@ -227,8 +237,8 @@
     <img src="U3HWHSC2I373QSWAXIGJLIY6PMBOCQVT.gif" class="decor-gif top-left">
     <img src="XULEZL6A63XNBIPEHOI77QYRTDGFSH33.gif" class="decor-gif bottom-right">
 
-    <!-- 大图容器 -->
     <div id="lightbox" onclick="closeLightbox()">
+        <div class="close-tip">&times;</div>
         <div class="lightbox-content" id="lbContent"></div>
     </div>
 
@@ -238,27 +248,30 @@
 
     <header>
         <h1>AO3文章皮肤代码</h1>
-        <div class="guide"><strong>使用方法：</strong><br>
-        ①在AO3创建新的 Work Skin，将CSS原封不动地复制粘贴进去，保存提交。<br>
-        ②复制html，将示范文本替换为你的内容。AO3发布时采用html发布，并选中刚刚创建的对应 Work Skin，使其生效即可。</div>
+       <div class="guide"><strong>使用方法：</strong><br>
+①在AO3创建新的 Work Skin，将CSS原封不动地复制粘贴进去，保存提交。<br>
+②复制html，将示范文本替换为你的内容。AO3发布时采用html发布，并选中刚刚创建的对应 Work Skin，使其生效即可。</div>
+		
 		<p style="color: #3D85C6; font-size: 0.8em;">
-            代码加载失败是网络问题，可尝试切换 VPN/设备/网络/浏览器 ，刷新重试。
-            点复制按钮没反应可能是浏览器设置了禁止读取信息，可尝试手动复制。
-        </p>
+    代码加载失败是网络问题，可尝试切换 VPN/设备/网络/浏览器 ，刷新重试。
+    点复制按钮没反应可能是浏览器设置了禁止读取信息，可尝试手动复制。
+</p>
     </header>
 
     <main class="container" id="cardContainer">
 
-        <!-- 卡片 1 -->
+        <!-- 模板开始 -->
         <div class="manuscript-card" data-html-path="首行缩进2格-html" data-css-path="首行缩进2格-css">
             <div class="card-header">
                 <span class="theme-title">首行缩进2格</span>
                 <span class="theme-desc">段落自动首行缩进两格，每个段落之间有一行空白。</span>
             </div>
             <div class="card-layout">
-                <div class="preview-area">
+                <div class="preview-wrapper">
                     <div class="img-counter">1/1</div>
-                    <img src="文件夹/111.png" onclick="openLightbox(this, event)">
+                    <div class="preview-area">
+                        <img src="文件夹/111.png" onclick="openLightbox(this)">
+                    </div>
                 </div>
                 <div class="code-section">
                     <div class="tabs">
@@ -274,17 +287,18 @@
             </div>
         </div>
 
-        <!-- 卡片 2 -->
         <div class="manuscript-card" data-html-path="html-AO3微信聊天窗口-捡手机文学" data-css-path="css-AO3微信聊天窗口-捡手机文学">
             <div class="card-header">
                 <span class="theme-title">仿微信UI（捡手机文学）</span>
                 <span class="theme-desc">自定义对话框数、系统提示等。</span>
             </div>
             <div class="card-layout">
-                <div class="preview-area">
+                <div class="preview-wrapper">
                     <div class="img-counter">1/2</div>
-                    <img src="文件夹/79968bf1114526dc649c561c5f8e0fe6.jpg" onclick="openLightbox(this, event)">
-                    <img src="文件夹/fd1db018ae94a0e610efdf51e3d70754.jpg" onclick="openLightbox(this, event)">
+                    <div class="preview-area">
+                        <img src="文件夹/79968bf1114526dc649c561c5f8e0fe6.jpg" onclick="openLightbox(this)">
+                        <img src="文件夹/fd1db018ae94a0e610efdf51e3d70754.jpg" onclick="openLightbox(this)">
+                    </div>
                 </div>
                 <div class="code-section">
                     <div class="tabs">
@@ -300,17 +314,18 @@
             </div>
         </div>
 
-        <!-- 卡片 3 -->
         <div class="manuscript-card" data-html-path="html-ao3浅蓝粉色论坛体" data-css-path="css-ao3浅蓝粉色论坛体">
             <div class="card-header">
                 <span class="theme-title">论坛体（蓝粉色）</span>
                 <span class="theme-desc">自定义层数、楼中楼、楼主标识显示等。</span>
             </div>
             <div class="card-layout">
-                <div class="preview-area">
+                <div class="preview-wrapper">
                     <div class="img-counter">1/2</div>
-                    <img src="文件夹/6500ccf4d5637cec3d09f5f8a64626b5.png" onclick="openLightbox(this, event)">
-					<img src="文件夹/f17453a766bd4fe5593f0194a824b4eb.png" onclick="openLightbox(this, event)">
+                    <div class="preview-area">
+                        <img src="文件夹/6500ccf4d5637cec3d09f5f8a64626b5.png" onclick="openLightbox(this)">
+					    <img src="文件夹/f17453a766bd4fe5593f0194a824b4eb.png" onclick="openLightbox(this)">
+                    </div>
                 </div>
                 <div class="code-section">
                     <div class="tabs">
@@ -326,17 +341,18 @@
             </div>
         </div>
 		
-		<!-- 卡片 4 -->
         <div class="manuscript-card" data-html-path="html-AO3暗色提问箱" data-css-path="css-AO3暗色提问箱">
             <div class="card-header">
                 <span class="theme-title">暗色提问箱</span>
                 <span class="theme-desc">自定义头像、昵称、问题、回答等。</span>
             </div>
             <div class="card-layout">
-                <div class="preview-area">
+                <div class="preview-wrapper">
                     <div class="img-counter">1/2</div>
-                    <img src="文件夹/5af8d831927dba47f23a5f3b5b135f10.jpg" onclick="openLightbox(this, event)">
-                    <img src="文件夹/391db17d6f905288c95d0b2fe8560879.jpg" onclick="openLightbox(this, event)">
+                    <div class="preview-area">
+                        <img src="文件夹/5af8d831927dba47f23a5f3b5b135f10.jpg" onclick="openLightbox(this)">
+                        <img src="文件夹/391db17d6f905288c95d0b2fe8560879.jpg" onclick="openLightbox(this)">
+                    </div>
                 </div>
                 <div class="code-section">
                     <div class="tabs">
@@ -355,7 +371,16 @@
     </main>
 
     <footer>
-        <p>© 2026 Syuga | 最后更新：2026年3月3日</p>
+        <p>© 2026 Syuga | 最后更新：2026年3月3日<br>
+代码由AI辅助开发。创意输出、细节调整、效果测试、代码整理均由 Syuga 独立完成。<br>
+			基于  <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh-hans" target="_blank">CC BY-NC 4.0</a>  协议授权：<br>
+			1. 允许个人学习、及非商业性使用；<br>
+2. 转载请注明原作者 Syuga；<br>
+3. 严禁任何形式的商业用途。<br>
+<br>
+<br>
+
+            </p>
     </footer>
 
     <script>
@@ -365,7 +390,6 @@
             return `https://raw.githubusercontent.com/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${path}`;
         }
 
-        // 获取代码
         async function fetchCodes() {
             const cards = document.querySelectorAll('.manuscript-card[data-html-path]');
             cards.forEach(card => {
@@ -377,18 +401,18 @@
         }
         window.addEventListener('DOMContentLoaded', fetchCodes);
 
-        // 1. 初始化滑动序号和拖拽功能
+        // 初始化预览区滑动序号和电脑端拖拽
         document.querySelectorAll('.preview-area').forEach(area => {
-            // 滑动更新序号
+            // 滑动时更新序号数字
             area.addEventListener('scroll', () => {
-                const idx = Math.round(area.scrollLeft / area.clientWidth);
+                const index = Math.round(area.scrollLeft / area.clientWidth);
                 const total = area.querySelectorAll('img').length;
-                area.querySelector('.img-counter').innerText = `${idx + 1}/${total}`;
+                const counter = area.parentElement.querySelector('.img-counter');
+                if(counter) counter.innerText = `${index + 1}/${total}`;
             });
 
-            // 电脑端拖拽滑动
-            let isDown = false;
-            let startX, scrollLeft;
+            // 电脑端拖拽
+            let isDown = false, startX, scrollLeft;
             area.addEventListener('mousedown', (e) => {
                 isDown = true;
                 startX = e.pageX - area.offsetLeft;
@@ -405,34 +429,34 @@
             });
         });
 
-        // 2. 大图逻辑
-        function openLightbox(img, event) {
-            event.stopPropagation();
+        // 大图模式：包含本组所有图片
+        function openLightbox(clickedImg) {
             const lb = document.getElementById('lightbox');
             const cont = document.getElementById('lbContent');
-            const cardImgs = img.parentElement.querySelectorAll('img');
-            let targetIdx = 0;
-
+            const allImgs = clickedImg.parentElement.querySelectorAll('img');
+            
             cont.innerHTML = '';
-            cardImgs.forEach((srcImg, i) => {
+            let targetIndex = 0;
+            
+            allImgs.forEach((img, i) => {
                 const slide = document.createElement('div');
                 slide.className = 'lightbox-slide';
                 const newImg = document.createElement('img');
-                newImg.src = srcImg.src;
+                newImg.src = img.src;
                 slide.appendChild(newImg);
                 cont.appendChild(slide);
-                if (srcImg === img) targetIdx = i;
+                if(img === clickedImg) targetIndex = i;
             });
 
             lb.style.display = 'block';
-            lb.scrollLeft = targetIdx * window.innerWidth;
+            // 定位到点击的那张
+            lb.scrollLeft = targetIndex * window.innerWidth;
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
         }
 
-        // 原有其他功能
         function switchTab(btn, type) {
             const card = btn.closest('.manuscript-card');
             card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
