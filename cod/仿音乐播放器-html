@@ -1,0 +1,42 @@
+	 
+<div class="music-console">
+	
+<!-- 头部开始 -->
+<div class="info-panel">
+<p class="song-title">我是大标题</p>
+<p class="artist">我是副标题</p>
+	</div>
+	<details>
+	<summary>
+      <div class="text-btn">
+        <span class="btn-open">点击开启</span>
+        <span class="btn-close">点击关闭</span>
+      </div>
+    </summary>
+		<div class="lcd-screen">
+		<audio controls="controls" crossorigin="anonymous" preload="metadata">
+        <source src="这里要替换为你的音频的地址" type="audio/mpeg">
+      </audio>
+		</div>
+	</details>
+	<div class="vinyl-deck">
+<p><img src="这里替换为静态图片的地址" class="cover-img static-img"><br>
+<img src="这里替换为gif图的地址" class="cover-img spinning-gif"></p>
+</div>
+<!-- 头部结束 -->
+	
+<!-- 正文开始 -->
+<div class="story-body">
+<div class="story-text">
+		
+<p>这里开始放正文文本，这是段落一</p>
+
+<p>两个p标签之间是一个新段，这是段落二</p>
+
+<p>同理，这是段落三</p>
+
+</div>
+</div>
+<!-- 正文结束 -->
+	
+</div>
