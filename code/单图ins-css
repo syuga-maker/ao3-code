@@ -1,0 +1,218 @@
+#workskin .ig-post-final {
+  max-width: 360px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #efefef;
+  background: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #262626;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+#workskin .ig-header-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#workskin .ig-header-table td {
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  vertical-align: middle;
+}
+
+#workskin .ig-avatar-cell {
+  width: 42px;
+  padding-left: 14px;
+}
+
+#workskin .ig-avatar-ring {
+  width: 32px;
+  height: 32px;
+  padding: 2px;
+  background: linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%);
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: block;
+}
+
+#workskin .ig-avatar {
+  width: 28px;
+  height: 28px;
+  background: #eeeeee;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  display: block;
+}
+
+#workskin .ig-username-cell {
+  font-weight: 600;
+  font-size: 0.9em;
+  padding-left: 10px;
+}
+
+#workskin .ig-more-cell {
+  width: 30px;
+  text-align: right;
+  font-size: 1.2em;
+  padding-right: 14px;
+  cursor: pointer;
+}
+
+#workskin .ig-img-carousel {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  height: 360px;
+  background: #fafafa;
+  scrollbar-width: none;
+}
+
+#workskin .ig-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#workskin .ig-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+#workskin .ig-actions-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#workskin .ig-actions-table td {
+  border: none;
+  padding-top: 8px;
+  padding-bottom: 2px;
+  padding-left: 0;
+  padding-right: 0;
+  vertical-align: middle;
+  height: 24px;
+}
+
+#workskin .ig-action-item {
+  width: 38px;
+  text-align: left;
+}
+
+#workskin .ig-actions-table td:first-child {
+  padding-left: 14px;
+}
+
+#workskin .ig-action-space {
+  width: auto;
+}
+
+#workskin .ig-action-save {
+  width: 38px;
+  text-align: right;
+  padding-right: 14px;
+}
+
+#workskin .ig-btn-icon {
+  width: 24px;
+  height: 24px;
+  max-width: 24px;
+  max-height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+#workskin .like-toggle {
+  display: block;
+  margin: 0;
+  padding: 0;
+  height: 24px;
+  width: 24px;
+}
+
+#workskin .like-toggle summary {
+  list-style: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+#workskin .like-toggle .heart-red {
+  display: none;
+}
+
+#workskin .like-toggle .heart-black {
+  display: block;
+}
+
+#workskin .like-toggle[open] .heart-red {
+  display: block;
+}
+
+#workskin .like-toggle[open] .heart-black {
+  display: none;
+}
+
+#workskin .ig-content {
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 12px;
+  padding-top: 2px;
+  font-size: 0.88em;
+  line-height: 1.25;
+}
+
+#workskin .ig-content p {
+  margin: 0;
+  padding: 0;
+}
+
+#workskin .ig-likes {
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+#workskin .ig-caption {
+  margin-top: 0;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+#workskin .ig-caption-user {
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+#workskin .ig-tags {
+  color: #00376b;
+  font-size: 0.95em;
+  line-height: 1.2;
+  margin-top: 0;
+}
