@@ -1,15 +1,27 @@
-<div class="ig-post-final"><table class="ig-header-table">
-    <tbody><tr>
+<div class="ig-post-final">
+  <table class="ig-header-table">
+    <tr>
+		
+		<!-- 头像直链 -->
       <td class="ig-avatar-cell">
         <div class="ig-avatar-ring"><img src="https://github.com/syuga-maker/ao3-code/blob/main/U3HWHSC2I373QSWAXIGJLIY6PMBOCQVT.gif?raw=true" class="ig-avatar" alt="avatar"></div>
       </td>
+		
+		 <!-- 用户名 -->
       <td class="ig-username-cell">username</td>
       <td class="ig-more-cell">⋮</td>
     </tr>
-  </tbody></table><div class="ig-img-carousel"><div class="ig-slide">
+  </table>
 
-<p><img src="https://github.com/syuga-maker/ao3-code/blob/main/%E8%83%8C%E6%99%AF.png?raw=true" alt="p1"></p></div></div><table class="ig-actions-table">
-    <tbody><tr>
+	 <!-- 图片直链 -->
+  <div class="ig-img-carousel">
+    <div class="ig-slide"><img src="https://github.com/syuga-maker/ao3-code/blob/main/%E8%83%8C%E6%99%AF.png?raw=true" alt="p1"></div>
+  </div>
+	
+	
+ <!-- 这里不用管 -->
+  <table class="ig-actions-table">
+    <tr>
       <td class="ig-action-item">
         <details class="like-toggle">
           <summary><img class="heart-black ig-btn-icon" src="https://raw.githubusercontent.com/syuga-maker/material/refs/heads/main/ins-like.png" alt="unlike"><img class="heart-red ig-btn-icon" src="https://raw.githubusercontent.com/syuga-maker/material/refs/heads/main/ins-like-red.png" alt="liked"></summary>
@@ -26,10 +38,12 @@
         <img class="ig-btn-icon" src="https://raw.githubusercontent.com/syuga-maker/material/refs/heads/main/ins-bookmark.png" alt="save">
       </td>
     </tr>
-  </tbody></table><div class="ig-content"><div class="ig-likes">
+  </table>
 
-<p>10,547 次赞</p></div><div class="ig-caption">
-
-<p><span class="ig-caption-user">username</span>一条没任何意义的文案。</p></div><div class="ig-tags">
-
-<p>#同人 #Instagram</p></div></div></div>
+	<!-- 文案 -->
+  <div class="ig-content">
+    <div class="ig-likes">10,547 次赞</div>
+    <div class="ig-caption"><span class="ig-caption-user">username</span>一条没任何意义的文案。</div>
+    <div class="ig-tags">#同人 #Instagram</div>
+  </div>
+</div>
